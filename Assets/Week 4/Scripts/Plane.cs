@@ -20,6 +20,7 @@ public class Plane : MonoBehaviour
         if(TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer)){
             spriteRenderer.sprite = sprites[(int)Random.Range(0,4)];
         }
+        speed = Random.Range(0.5f, 2f);
     }
     
     void OnMouseDown() {
@@ -69,5 +70,23 @@ public class Plane : MonoBehaviour
 
     void OnBecameInvisible(){
         Destroy(gameObject);
+    }
+
+    void OnTriggerEnter2D(){
+        if(TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer)){
+            spriteRenderer.color = Color.red;
+        }
+    }
+
+    void OnTriggerExit2D(){
+        if(TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer)){
+            spriteRenderer.color = Color.white;
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D other){
+        if(Vector3.Distance(transform.position, other.transform.position) < 0.5f){
+            Destroy(this.gameObject);
+        }
     }
 }
