@@ -11,11 +11,15 @@ public class Plane : MonoBehaviour
     public float speed = 1f;
     public AnimationCurve landing;
     float landingTimer = 0;
+    public Sprite[] sprites;
 
     void Start() {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 1;
         lineRenderer.SetPosition(0, transform.position);
+        if(TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer)){
+            spriteRenderer.sprite = sprites[(int)Random.Range(0,4)];
+        }
     }
     
     void OnMouseDown() {
