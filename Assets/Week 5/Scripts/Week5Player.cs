@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Week5Player : MonoBehaviour
 {
@@ -10,7 +11,9 @@ public class Week5Player : MonoBehaviour
     Vector3 difference;
     public Animator animator;
     public int hp = 10;
+    public int maxHp = 10;
     int hitResetTimer = 5;
+    public Slider hpbar;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +23,8 @@ public class Week5Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        Debug.Log(hp);
+
         if(hp <= 0){
             return;
         }
@@ -36,11 +41,9 @@ public class Week5Player : MonoBehaviour
             difference = target - transform.position;
             if(difference.magnitude < 1f){
                 target = transform.position;
-                animator.SetBool("Hit", true);
-                hitResetTimer = 5;
-                hp--;
+                SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver);
                 if(hp <= 0){
-                    animator.SetBool("Dead", true);
+                    SendMessage("Death", SendMessageOptions.DontRequireReceiver);
                 }
             }
             else{
@@ -57,5 +60,23 @@ public class Week5Player : MonoBehaviour
         else {
             animator.SetFloat("Speed", 0);
         }
+    }
+
+    void TakeDamage(int amount){
+        if(hp <= 0){
+            return;
+        }
+        if(amount > 0){
+            animator.SetBool("Hit", true);
+            hitResetTimer = 5;
+        }
+        hp -= amount;
+        hpbar.value = hp;
+        if(hp > maxHp) 
+            hp = maxHp;
+    }
+
+    void Death(){
+        animator.SetBool("Dead", true);
     }
 }
