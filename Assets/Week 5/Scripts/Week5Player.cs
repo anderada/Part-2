@@ -12,8 +12,8 @@ public class Week5Player : MonoBehaviour
     public Animator animator;
     public int hp = 10;
     public int maxHp = 10;
-    int hitResetTimer = 5;
     public Slider hpbar;
+    bool attack = false;
 
     // Start is called before the first frame update
     void Start()
@@ -29,25 +29,29 @@ public class Week5Player : MonoBehaviour
             return;
         }
 
-        hitResetTimer--;
-        if(hitResetTimer <= 0){
-            animator.SetBool("Hit", false);
-        }
-
-        if(Input.GetMouseButtonDown(0)){
+        if(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)){
             target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             target.z = 0;
-            target.y -= 0.5f;
-            difference = target - transform.position;
-            if(difference.magnitude < 1f){
-                target = transform.position;
-                SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver);
-                if(hp <= 0){
-                    SendMessage("Death", SendMessageOptions.DontRequireReceiver);
+            if(target.y < 4){
+                target.y -= 0.5f;
+                difference = target - transform.position;
+                if(difference.magnitude < 1f){
+                    target = transform.position;
+                    SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver);
+                    if(hp <= 0){
+                        SendMessage("Death", SendMessageOptions.DontRequireReceiver);
+                    }
+                }
+                else{
+                    target.y += 0.5f;
                 }
             }
             else{
-                target.y += 0.5f;
+                target = transform.position;
+            }
+
+            if(Input.GetMouseButtonDown(1)){
+                attack = true;
             }
         }
 
@@ -59,6 +63,10 @@ public class Week5Player : MonoBehaviour
         }
         else {
             animator.SetFloat("Speed", 0);
+            if(attack){
+                animator.SetTrigger("Attack");
+            }
+            attack = false;
         }
     }
 
@@ -67,8 +75,7 @@ public class Week5Player : MonoBehaviour
             return;
         }
         if(amount > 0){
-            animator.SetBool("Hit", true);
-            hitResetTimer = 5;
+            animator.SetTrigger("Hit");
         }
         hp -= amount;
         hpbar.value = hp;
