@@ -6,21 +6,21 @@ public class Sword : MonoBehaviour
 {
     public Transform targetTransform;
     Vector3 target;
-    public float speed = 10f;
+    public float speed = 100f;
     Vector3 difference;
+    public Rigidbody2D rigidbody;
 
-    void Start(){
+
+    void FixedUpdate(){
         target = targetTransform.position;
         target.y += 0.5f;
         difference = target - transform.position;
+        difference = Vector3.Normalize(difference);
         //rotate towards target
         float rotationTarget = Mathf.Rad2Deg * Mathf.Atan2(difference.y, difference.x) - 90;
         transform.Rotate(0, 0, (rotationTarget - transform.eulerAngles.z));
-    }
-
-    void FixedUpdate(){
         //move towards target
-        transform.Translate(Vector3.up * Time.deltaTime * speed);
+        rigidbody.AddForce(difference * Time.deltaTime * speed);
     }
 
     void OnTriggerEnter2D(){
