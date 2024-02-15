@@ -23,7 +23,8 @@ public class Sword : MonoBehaviour
         rigidbody.AddForce(difference * Time.deltaTime * speed);
     }
 
-    void OnTriggerEnter2D(){
+    void OnTriggerEnter2D(Collider2D other){
+        other.gameObject.SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver);
         Destroy(gameObject);
     }
 }

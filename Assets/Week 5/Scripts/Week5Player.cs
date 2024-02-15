@@ -22,7 +22,7 @@ public class Week5Player : MonoBehaviour
     }
 
     void OnMouseDown(){
-        SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver);
+        TakeDamage(1);
     }
 
     void Update(){
@@ -83,7 +83,7 @@ public class Week5Player : MonoBehaviour
             hp = maxHp;
 
         if(hp <= 0){
-            SendMessage("Death", SendMessageOptions.DontRequireReceiver);
+            Death();
         }
     }
 
@@ -92,8 +92,4 @@ public class Week5Player : MonoBehaviour
         animator.SetTrigger("Dead");
     }
 
-    //sword hit
-    void OnTriggerEnter2D(){
-        SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver);
-    }
 }
