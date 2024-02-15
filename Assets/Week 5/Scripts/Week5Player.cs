@@ -89,7 +89,7 @@ public class Week5Player : MonoBehaviour
 
     //play death animation
     void Death(){
-        animator.SetBool("Dead", true);
+        animator.SetTrigger("Dead");
     }
 
     //sword hit
