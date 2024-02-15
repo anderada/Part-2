@@ -21,42 +21,28 @@ public class Week5Player : MonoBehaviour
         target = transform.position;
     }
 
-    void FixedUpdate()
-    {
-        //ignore player input if dead
-        if(hp <= 0){
-            return;
-        }
+    void OnMouseDown(){
+        SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver);
+    }
 
+    void Update(){
         //check mouse click
         if(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)){
             //get mouse position in world space
             target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             target.z = 0;
-            //ignore mouse clicks in UI area
-            if(target.y < 4){
-                //adjust target to center of knight
-                target.y -= 0.5f;
-                //find distance between click and knight
-                difference = target - transform.position;
-                //if click is close enough to knight, deal damage
-                if(difference.magnitude < 1f){
-                    target = transform.position;
-                    SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver);
-                }
-                //if click is away from knight, undo adjustment to centre of knight
-                else{
-                    target.y += 0.5f;
-                }
-            }
-            //if click is in the UI area, set target back to where the knight is now
-            else{
-                target = transform.position;
-            }
             //on right click set the attack flag
             if(Input.GetMouseButtonDown(1)){
                 attack = true;
             }
+        }
+    }
+
+    void FixedUpdate()
+    {
+        //ignore player input if dead
+        if(hp <= 0){
+            return;
         }
 
         //calculate the difference between where the knight is and where it should be
