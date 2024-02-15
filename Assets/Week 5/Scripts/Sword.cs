@@ -8,8 +8,12 @@ public class Sword : MonoBehaviour
     Vector3 target;
     public float speed = 100f;
     Vector3 difference;
-    public Rigidbody2D rigidbody;
+    public Rigidbody2D rb;
+    public GameObject messenger;
 
+    void Start(){
+        messenger = FindObjectOfType<Messenger>().gameObject;
+    }
 
     void FixedUpdate(){
         target = targetTransform.position;
@@ -20,11 +24,11 @@ public class Sword : MonoBehaviour
         float rotationTarget = Mathf.Rad2Deg * Mathf.Atan2(difference.y, difference.x) - 90;
         transform.Rotate(0, 0, (rotationTarget - transform.eulerAngles.z));
         //move towards target
-        rigidbody.AddForce(difference * Time.deltaTime * speed);
+        rb.AddForce(difference * Time.deltaTime * speed);
     }
 
     void OnTriggerEnter2D(Collider2D other){
-        other.gameObject.SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver);
+        messenger.gameObject.SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver);
         Destroy(gameObject);
     }
 }

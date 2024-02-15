@@ -13,8 +13,8 @@ public class Week5Player : MonoBehaviour
     public Animator animator;
     public int hp = 10;
     public int maxHp = 10;
-    public Slider hpbar;
     bool attack = false;
+    public GameObject messenger;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +23,7 @@ public class Week5Player : MonoBehaviour
     }
 
     void OnMouseDown(){
-        TakeDamage(1);
+        messenger.SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver);
     }
 
     void Update(){
@@ -71,22 +71,30 @@ public class Week5Player : MonoBehaviour
         }
     }
 
-    void TakeDamage(int amount){
-        //if dead ignore
-        if(hp <= 0){
-            return;
-        }
+    public void TakeDamage(int amount){
         //if damage isn't healing, play hit animation
         if(amount > 0){
             animator.SetTrigger("Hit");
         }
-        //reduce hp and healthbar
+        //reduce hp
         hp -= amount;
-        hpbar.value = hp;
+
         //don't heal past maxHp
         if(hp > maxHp) 
             hp = maxHp;
+        if(hp < 0)
+            hp = 0;
+            
+        //update playerprefs
+        PlayerPrefs.SetInt("hp", hp);
 
+        if(hp <= 0){
+            Death();
+        }
+    }
+
+    void SetDamage(int amount){
+        hp = amount;
         if(hp <= 0){
             Death();
         }

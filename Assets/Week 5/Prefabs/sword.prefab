@@ -173,4 +173,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
   speed: 1500
-  rigidbody: {fileID: 871601781665143511}
+  rb: {fileID: 871601781665143511}
+  messenger: {fileID: 0}

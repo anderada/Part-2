@@ -321,9 +321,6 @@ PrefabInstance:
       addedObject: {fileID: 751023247}
     - targetCorrespondingSourceObject: {fileID: 4531661745246666081, guid: ee9a81cf59c6d97478f9f65d8da973e5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 751023250}
-    - targetCorrespondingSourceObject: {fileID: 4531661745246666081, guid: ee9a81cf59c6d97478f9f65d8da973e5, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 751023252}
     - targetCorrespondingSourceObject: {fileID: 4531661745246666081, guid: ee9a81cf59c6d97478f9f65d8da973e5, type: 3}
       insertIndex: -1
@@ -371,24 +368,12 @@ MonoBehaviour:
   animator: {fileID: 751023247}
   hp: 10
   maxHp: 10
-  hpbar: {fileID: 1925089747}
+  messenger: {fileID: 2077141431}
 --- !u!4 &751023249 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4709178890467892913, guid: ee9a81cf59c6d97478f9f65d8da973e5, type: 3}
   m_PrefabInstance: {fileID: 751023245}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &751023250
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 751023246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68ae1e4cc16c074518067ef879d28c05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &751023251
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1742,14 +1727,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 751023250}
-        m_TargetAssemblyTypeName: HealButton, Assembly-CSharp
+      - m_Target: {fileID: 2077141432}
+        m_TargetAssemblyTypeName: Messenger, Assembly-CSharp
         m_MethodName: Heal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: -1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1802,6 +1787,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1925089746}
   - component: {fileID: 1925089747}
+  - component: {fileID: 1925089748}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -1881,6 +1867,64 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1925089748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925089745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a41309eae6001f6941c159efc78b6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2077141431
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2077141433}
+  - component: {fileID: 2077141432}
+  m_Layer: 0
+  m_Name: Messenger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2077141432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077141431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b1adf8f1337d65091601153c5e929c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knight: {fileID: 751023246}
+  hpBar: {fileID: 1925089745}
+--- !u!4 &2077141433
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077141431}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.774779, y: 0.9017054, z: -0.088720396}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1890,3 +1934,4 @@ SceneRoots:
   - {fileID: 751023245}
   - {fileID: 1006343064}
   - {fileID: 1276508370}
+  - {fileID: 2077141433}
