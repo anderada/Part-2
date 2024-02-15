@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Week5Player : MonoBehaviour
 {
@@ -26,6 +27,10 @@ public class Week5Player : MonoBehaviour
     }
 
     void Update(){
+        //ignore mouse clicks on UI
+        if(EventSystem.current.IsPointerOverGameObject()){
+            return;
+        }
         //check mouse click
         if(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)){
             //get mouse position in world space
