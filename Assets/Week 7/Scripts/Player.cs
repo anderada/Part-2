@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     Color highlight;
     Color normal;
     SpriteRenderer playerbase;
+    public Rigidbody2D rb;
+    public float speed = 50f;
 
     void Start(){
         highlight = new Color(0.3f, 0.5f, 1);
@@ -18,7 +20,7 @@ public class Player : MonoBehaviour
 
     void OnMouseDown()
     {
-        Selected(true);
+        Controller.setSelectedPlayer(this);
     }
 
     public void Selected(bool selected){
@@ -28,5 +30,11 @@ public class Player : MonoBehaviour
         else{
             playerbase.color = normal;
         }
+    }
+
+    public void Flick(Vector3 direction){
+        Debug.Log(direction);
+        direction.z = 0;
+        rb.AddForce(direction * speed);
     }
 }
