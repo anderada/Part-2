@@ -8,17 +8,12 @@ public class OkonoMessenger : MonoBehaviour
 {
     List<GameObject> foods;
     public Okonomichi player;
+    public List<GameObject> bars;
+    float rest;
+    float hunger;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Start(){
         foods = new List<GameObject>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void AddFood(GameObject toAdd){
@@ -38,12 +33,20 @@ public class OkonoMessenger : MonoBehaviour
             foods.Remove(toDestroy);
             Destroy(toDestroy);
         }
+        foreach(GameObject bar in bars){
+            bar.SendMessage("Eat", SendMessageOptions.DontRequireReceiver);
+        }
     }
 
     public void SetNight(){
         player.SendMessage("Sleep", SendMessageOptions.DontRequireReceiver);
         foreach(GameObject food in foods){
             food.SendMessage("Sleep", SendMessageOptions.DontRequireReceiver);
+        }
+        foreach(GameObject bar in bars){
+            bar.SendMessage("Sleep", SendMessageOptions.DontRequireReceiver);
+            bar.SendMessage("SetRest", rest, SendMessageOptions.DontRequireReceiver);
+            bar.SendMessage("SetHunger", hunger, SendMessageOptions.DontRequireReceiver);
         }
     }
 
@@ -52,5 +55,18 @@ public class OkonoMessenger : MonoBehaviour
         foreach(GameObject food in foods){
             food.SendMessage("Wake", SendMessageOptions.DontRequireReceiver);
         }
+        foreach(GameObject bar in bars){
+            bar.SendMessage("Sleep", SendMessageOptions.DontRequireReceiver);
+            bar.SendMessage("SetRest", rest, SendMessageOptions.DontRequireReceiver);
+            bar.SendMessage("SetHunger", hunger, SendMessageOptions.DontRequireReceiver);
+        }
+    }
+
+    public void SetRest(float newRest){
+        rest = newRest;
+    }
+
+    public void SetHunger(float newHunger){
+        hunger = newHunger;
     }
 }
