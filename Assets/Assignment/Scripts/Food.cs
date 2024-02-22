@@ -8,6 +8,7 @@ public class Food : MonoBehaviour
 {
 
     bool mouseHeld = false;
+    public GameObject nightMode;
 
     // Start is called before the first frame update
     void Start()
@@ -36,4 +37,14 @@ public class Food : MonoBehaviour
     void OnMouseUp(){
         mouseHeld = false;
     }
+
+    void Sleep(){
+        nightMode.SetActive(true);
+    }
+
+    void Wake(){
+        nightMode.SetActive(false);
+    }
+
+
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 public class OkonoMessenger : MonoBehaviour
 {
     List<GameObject> foods;
-    Okonomichi player;
+    public Okonomichi player;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +37,20 @@ public class OkonoMessenger : MonoBehaviour
             GameObject toDestroy = foods[0];
             foods.Remove(toDestroy);
             Destroy(toDestroy);
+        }
+    }
+
+    public void SetNight(){
+        player.SendMessage("Sleep", SendMessageOptions.DontRequireReceiver);
+        foreach(GameObject food in foods){
+            food.SendMessage("Sleep", SendMessageOptions.DontRequireReceiver);
+        }
+    }
+
+    public void SetDay(){
+        player.SendMessage("Wake", SendMessageOptions.DontRequireReceiver);
+        foreach(GameObject food in foods){
+            food.SendMessage("Wake", SendMessageOptions.DontRequireReceiver);
         }
     }
 }

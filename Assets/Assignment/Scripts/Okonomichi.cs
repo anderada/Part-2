@@ -22,7 +22,7 @@ public class Okonomichi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Eat") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Pet"))
+        if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Eat") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Pet") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Sleep"))
             target = mes.GetFoodPos();
         else
             target = Vector3.zero;
@@ -31,7 +31,7 @@ public class Okonomichi : MonoBehaviour
     }
 
     void FixedUpdate(){
-        if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Eat") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Pet")){
+        if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Eat") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Pet") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Sleep")){
             if(target.x != 0 && target.y != 0){
                 animator.SetBool("Walking", true);
                 Vector3 difference = transform.position - target;
@@ -55,5 +55,13 @@ public class Okonomichi : MonoBehaviour
 
     void OnMouseUp(){
         animator.SetBool("Pet", false);
+    }
+
+    void Sleep(){
+        animator.SetBool("Sleep", true);
+    }
+
+    void Wake(){
+        animator.SetBool("Sleep", false);
     }
 }
