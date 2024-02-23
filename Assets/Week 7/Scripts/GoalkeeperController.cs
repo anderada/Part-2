@@ -8,22 +8,27 @@ public class GoalkeeperController : MonoBehaviour
 {
     public Rigidbody2D goalkeeper;
     float lineDistance = 2f;
+    Vector3 target;
+    public float speed = 10f;
 
     void FixedUpdate(){
         if(Controller.SelectedPlayer != null){
             Vector3 direction = Controller.SelectedPlayer.transform.position - transform.position;
             if(direction.magnitude < lineDistance * 2){
                 direction /= 2;
-                goalkeeper.transform.position = transform.position + direction;
+                target = transform.position + direction;
             }
             else{
                 direction.Normalize();
                 direction *= lineDistance;
-                goalkeeper.transform.position = transform.position + direction;
+                target = transform.position + direction;
             }
         }
         else{
-            goalkeeper.transform.position = transform.position;
+            target = transform.position;
         }
+
+        float step = speed * Time.deltaTime;
+        goalkeeper.transform.position = Vector3.MoveTowards(goalkeeper.transform.position, target, step);
     }
 }

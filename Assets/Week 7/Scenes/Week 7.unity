@@ -257,6 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalkeeper: {fileID: 791237731}
+  speed: 3
 --- !u!1 &131876055
 GameObject:
   m_ObjectHideFlags: 0
