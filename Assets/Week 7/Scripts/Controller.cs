@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Controller : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Controller : MonoBehaviour
     bool fire = false;
     float flickPower = 0;
     public Slider flickSlider;
+    public static int score = 0;
+    public TextMeshProUGUI scoreText;
 
     public static void setSelectedPlayer(Player toSet){
         if(SelectedPlayer != null){
@@ -44,5 +47,6 @@ public class Controller : MonoBehaviour
             fire = false;
         }
         flickSlider.value = flickPower;
+        scoreText.text = "Score: " + score;
     }
 }

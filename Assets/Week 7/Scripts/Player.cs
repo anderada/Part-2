@@ -33,7 +33,6 @@ public class Player : MonoBehaviour
     }
 
     public void Flick(Vector3 direction){
-        Debug.Log(direction);
         direction.z = 0;
         rb.AddForce(direction * speed);
     }
